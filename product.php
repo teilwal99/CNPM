@@ -9,7 +9,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Nhà Sách Phương Nam - Product</title>
+    <title>Website Nhà hàng - Product</title>
     <link rel="icon" href="img/logo.jpg" />
     <link rel="stylesheet" href="styleProduct.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;800&display=swap" rel="stylesheet">
@@ -21,7 +21,7 @@
 <body>
     <div id="navbar">
         <a href="index.php" class="home button">
-            Nhà sách <b>Phương Nam</b> 
+            <b>Website</b> Nhà hàng
         </a>
         <?php
         if (!isset($_SESSION['login_user'])) {
@@ -43,7 +43,7 @@
     <div id="navbar_mobile">
         <div id="unactive_navbar">
             <a href="index.php" class="home button" onclick="myFunctionForHome()">
-                Nhà sách <b>Phương Nam</b> 
+                <b>Website</b> Nhà hàng 
             </a>
             <a href="javascript:void(0);" class="button" onclick="myFunction()">
                 <i id="fa-bars" class="fa fa-bars"></i>
@@ -85,7 +85,7 @@
                         <div>
                             <h3><b>".$row['content']."</b></h3>
                             Author
-                            <p><b>".$row['author']."</b></p>
+                            <p><b>".$row['desciption']."</b></p>
                         </div>
                         <div>
                             <h4>Price: ".(string)($row['cost'])."Vnd

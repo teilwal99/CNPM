@@ -13,7 +13,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Nhà sách Phương Nam- Admin Management</title>
+    <title>Website nhà hàng- Admin Management</title>
     <link rel="icon" href="./img/logo.ico" sizes="32x32" />
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;800&display=swap" rel="stylesheet">
@@ -28,7 +28,7 @@
 <body>
     <div id="navbar">
         <a href="index.php" class="home button">
-            Nhà Sách<b>Phương Nam</b>
+            <b>Website</b> Nhà hàng
         </a>
         <?php
         if (!isset($_SESSION['login_user'])) {
@@ -47,7 +47,7 @@
     <div id="navbar_mobile">
         <div id="unactive_navbar">
             <a href="index.php" class="home button" onclick="myFunctionForHome()">
-                Nhà sách<b>Phương Nam</b> 
+                <b>Website</b> Nhà hàng
             </a>
             <a href="javascript:void(0);" class="button" onclick="myFunction()">
                 <i id="fa-bars" class="fa fa-bars"></i>
@@ -147,10 +147,9 @@
                 <button class="signup-btn" onclick="openModalAddProducts()">Thêm sản phẩm</button>
                 <table id="admin">
                     <tr>
-                        <th>Tên sách</th>
+                        <th>Tên món ăn</th>
                         <th>Giá</th>
                         <th>Loại</th>
-                        <th>Tác giả</th>
                         <th>Thao tác</th>
                     </tr>
                     <?php
@@ -178,7 +177,6 @@
                                     <td>" . $row2['content'] . "</td>
                                     <td>" . $row2['cost'] . "</td>
                                     <td>" . $row2['category'] . "</td>
-                                    <td>" . $row2['author'] . "</td>
                                     <td style='text-align: center;'>
                                         <button class='button_edit' onclick='openModalEditProducts(".$row2['id'].")'>Edit</button>
                                     </td>

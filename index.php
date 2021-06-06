@@ -13,7 +13,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Nhà sách Phương Nam - Homepage</title>
+    <title>Nhà hàng Website - Homepage</title>
     <link rel="icon" href="./img/logo.jpg" sizes="32x32" />
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;800&display=swap" rel="stylesheet">
@@ -23,7 +23,7 @@
 <body>
     <div id="navbar">
         <a href="index.php" class="home button">
-            <b>Phương Nam</b> Nhà sách
+            <b>Website</b> Nhà hàng
         </a>
         <?php
         if (!isset($_SESSION['login_user'])) {
@@ -45,7 +45,7 @@
     <div id="navbar_mobile">
         <div id="unactive_navbar">
             <a href="index.php" class="home button" onclick="myFunctionForHome()">
-                <b>Phương Nam</b> Nhà sách
+                <b>Website</b> Nhà hàng
             </a>
             <a href="javascript:void(0);" class="button" onclick="myFunction()">
                 <i id="fa-bars" class="fa fa-bars"></i>
@@ -73,18 +73,18 @@
     </div>
     <div class="main_content">
         <div class="top_content">
-            <img src="./img/nhasach.jpg" alt="architect" class="main_picture">
+            <img src="./img/nhahang.jpg" alt="architect" class="main_picture">
         </div>
         <div id="projects">
             <div class="sub_title">
-                <h2>Sách bestseller</h2>
+                <h2>Menu</h2>
             </div>
             <div class="projects_content">
-                <?php
+            <?php
 
-                $result = mysqli_query($db, 'select count(id) as total from post');
+                $result = mysqli_query($db, 'select count(id) as total from post where inmenu = 1');
                 $row = mysqli_fetch_assoc($result);
-                $total_records = 20;
+                $total_records = $row["total"];
 
                 $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
                 $limit = 4;
@@ -99,14 +99,14 @@
 
                 $start = ($current_page - 1) * $limit;
 
-                $sql = "SELECT * FROM post WHERE id <= 20 ORDER BY id LIMIT " . $limit . " OFFSET " . $start ;
+                $sql = "SELECT * FROM post WHERE inmenu = 1 ORDER BY id LIMIT " . $limit . " OFFSET " . $start ;
                 $result = mysqli_query($db, $sql);
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         echo "<div class='sub_content' onclick='viewDetail(" . $row['id'] . ")'>
                                 <img src='./img/" . $row['img'] . "' alt='house1' class='sub_picture'>
                                 <div class='sub_text'>
-                                    <span>" . $row['category'] . "</span>
+                                    <span>" . $row['content'] . "</span>
                                 </div>
                                 <div class='prices'>
                                     <span>" . (string)($row['cost']) . " VNĐ</span>
@@ -133,14 +133,14 @@
                 }
                 ?>
             </div>
-                <!--Literature & Fiction-->
+         
             <div class="sub_title">
-                <h2>Sách Văn học Viễn tưởng</h2>
+                <h2>Đồ Ăn Buổi Trưa</h2>
             </div>
             <div class="projects_content">
                 <?php
 
-                $result = mysqli_query($db, 'select count(id) as total from post where category = "Literature & Fiction"');
+                $result = mysqli_query($db, 'select count(id) as total from post where inmenu = 2');
                 $row = mysqli_fetch_assoc($result);
                 $total_records = $row["total"];
 
@@ -157,14 +157,14 @@
 
                 $start = ($current_page - 1) * $limit;
 
-                $sql = "SELECT * FROM post WHERE category = 'Literature & Fiction' ORDER BY id LIMIT " . $limit . " OFFSET " . $start ;
+                $sql = "SELECT * FROM post WHERE inmenu = 2 ORDER BY id LIMIT " . $limit . " OFFSET " . $start ;
                 $result = mysqli_query($db, $sql);
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         echo "<div class='sub_content' onclick='viewDetail(" . $row['id'] . ")'>
                                 <img src='./img/" . $row['img'] . "' alt='house1' class='sub_picture'>
                                 <div class='sub_text'>
-                                    <span>" . $row['category'] . "</span>
+                                    <span>" . $row['content'] . "</span>
                                 </div>
                                 <div class='prices'>
                                     <span>" . (string)($row['cost']) . " VNĐ</span>
@@ -194,12 +194,12 @@
             </div>
                 <!--Science-->
             <div class="sub_title">
-                <h2>Sách Khoa học Lịch Sử</h2>
+                <h2>Đồ Ăn Buổi Tối</h2>
             </div>
             <div class="projects_content">
                 <?php
 
-                $result = mysqli_query($db, 'select count(id) as total from post where category = "Science"');
+                $result = mysqli_query($db, 'select count(id) as total from post where inmenu = 3');
                 $row = mysqli_fetch_assoc($result);
                 $total_records = $row["total"];
 
@@ -217,14 +217,14 @@
 
                 $start = ($current_page - 1) * $limit;
 
-                $sql = "SELECT * FROM post WHERE category = 'Science' ORDER BY id LIMIT " . $limit . " OFFSET " . $start ;
+                $sql = "SELECT * FROM post WHERE inmenu = 3 ORDER BY id LIMIT " . $limit . " OFFSET " . $start ;
                 $result = mysqli_query($db, $sql);
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         echo "<div class='sub_content' onclick='viewDetail(" . $row['id'] . ")'>
                                 <img src='./img/" . $row['img'] . "' alt='house1' class='sub_picture'>
                                 <div class='sub_text'>
-                                    <span>" . $row['category'] . "</span>
+                                    <span>" . $row['content'] . "</span>
                                 </div>
                                 <div class='prices'>
                                     <span>" . (string)($row['cost']) . " VNĐ</span>
@@ -254,12 +254,12 @@
             </div>
             <!--Biography-->
             <div class="sub_title">
-                <h2>Sách Văn học Viễn tưởng</h2>
+                <h2>Đồ Uống</h2>
             </div>
             <div class="projects_content">
                 <?php
 
-                $result = mysqli_query($db, 'select count(id) as total from post where category = "Biography"');
+                $result = mysqli_query($db, 'select count(id) as total from post where inmenu = 4');
                 $row = mysqli_fetch_assoc($result);
                 $total_records = $row["total"];
 
@@ -276,14 +276,14 @@
 
                 $start = ($current_page - 1) * $limit;
 
-                $sql = "SELECT * FROM post WHERE category = 'Biography' ORDER BY id LIMIT " . $limit . " OFFSET " . $start ;
+                $sql = "SELECT * FROM post WHERE inmenu = 4 ORDER BY id LIMIT " . $limit . " OFFSET " . $start ;
                 $result = mysqli_query($db, $sql);
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         echo "<div class='sub_content' onclick='viewDetail(" . $row['id'] . ")'>
                                 <img src='./img/" . $row['img'] . "' alt='house1' class='sub_picture'>
                                 <div class='sub_text'>
-                                    <span>" . $row['category'] . "</span>
+                                    <span>" . $row['content'] . "</span>
                                 </div>
                                 <div class='prices'>
                                     <span>" . (string)($row['cost']) . " VNĐ</span>
@@ -314,31 +314,38 @@
             <div id="about">
                 <div class="sub_title">
                     <h2>Giới thiệu</h2>
-                    <h4>CHÀO MỪNG BẠN ĐẾN VỚI NHÀ SÁCH PHƯƠNG NAM</h4>
-                    <p> Nhà Sách Phương Nam là hệ thống nhà sách thân thuộc của nhiều gia đình Việt kể từ nhà sách đầu tiên ra đời năm 1982 đến nay.  
- 
-                    Đến với không gian mua sắm trực tuyến của nhà sách Phương Nam, khách hàng có thể dễ dàng tìm thấy những cuốn sách hay, đa thể 
-                    loại của nhiều nhà xuất bản, công ty sách trong và ngoài nước cùng nhiều dụng cụ học tập, văn phòng phẩm, quà lưu niệm, đồ chơi 
-                    giáo dục chính hãng của những thương hiệu uy tín. Cùng tiêu chí không ngừng hoàn thiện, nâng cao chất lượng sản phẩm, dịch vụ, 
-                    Nhà Sách Phương Nam cam kết mang đến cho khách hàng trải nghiệm mua sắm trực tuyến an toàn, tiện lợi: cách đặt hàng đơn giản, 
-                    phương thức thanh toán đa dạng, dịch vụ chăm sóc khách hàng tận tình, chu đáo..</p>
-                    <img src="./img/nhasach-intro.jpg" alt="architect" class="main_picture">
-                    <p><b>Danh mục hàng hóa phong phú, nhiều sản phẩm độc quyền, được chọn lọc kỹ càng đã tạo nên sự khác biệt của Nhà Sách Phương 
-                    Nam và tạo dựng được lòng tin yêu từ khách hàng. </b></p>
+                    <h4>CHÀO MỪNG BẠN ĐẾN VỚI SmartFood</h4>
+                    <p>Hãy để chúng tôi chào đón bạn bằng một câu chuyện mộc mạc về sự khởi nghiệp khiêm tốn của
+                        chúng
+                        tôi vào những ngày trước khi về căn nhà NHÀ ĐẸP SÀI GÒN của năm 2005 về trước. Như mọi
+                        thương
+                        hiệu và công ty tên tuổi khác, chúng tôi tồn
+                        tại nhờ tuân thủ những nguyên tắc cơ bản trong kinh doanh, đạo đức nghề nghiệp, tôn
+                        trọng khách
+                        hàng và sự hợp pháp.</p>
 
-                    <p>Ngoài danh mục sách đa dạng và phong phú của nhiều nhà xuất bản, công ty sách lớn nhỏ trong nước, ngoài nước. Phương Nam còn chủ động khai 
-                    thác bản quyền và liên kết xuất bản hàng ngàn đầu sách hay và giá trị với thương hiệu Phương Nam Book, trong đó nhiều tựa được 
-                    đánh giá cao và lọt vào danh mục bán chạy của các hệ thống phát hành sách lớn nhất Việt Nam.</p>
+                    <p>Khởi đầu tuy nhỏ bé nhưng chúng tôi ấp ủ một hoài bão lớn. Với tầm nhìn là sáng tạo ra
+                        những giải
+                        pháp và dịch vụ chuyên nghiệp có thể mang đến/giúp cải thiện cuộc sống, cũng như hoạt
+                        động kinh
+                        doanh của khách hàng. Các dịch vụ này phải
+                        thật sự đáp ứng – thoả mãn được nhu cầu thực tế.</p>
+                </div>
+                <div class="projects_content">
+                    <?php
+                    $sql = "SELECT * FROM employee ORDER BY id  LIMIT 4 OFFSET 0";
+                    $result = mysqli_query($db, $sql);
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<div class='sub_content'>
+                            <img src='./img/" . $row['img'] . "' alt='team1' class='sub_picture about' style='height:300px; object-fit: none;        object-position: center;' >
+                            <h3>" . $row['name'] . "</h3>
+                            <a href='mailto:" . $row['email'] . "' class='button about'>Liên hệ</a>
+                            </div>";
+                        }
+                    }
+                    ?>
 
-                    <p>Hotline: 1900 6656<br><br>
-                        Email:<br><br>
-                        
-                        Yêu cầu hỗ trợ đơn hàng Online: hotro@nhasachphuongnam.com<br><br>
-                        
-                        Gửi bản thảo, các vấn đề liên quan đến xuất bản: xuatban@phuongnambook.com<br><br>
-                        
-                        Địa chỉ văn phòng công ty: Lầu 1, số 940 Đường 3/2, P.15, Q.11, TP. Hồ Chí Minh</p>
- 
                 </div>
             </div>
             <div id="contact">
