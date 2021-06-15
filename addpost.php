@@ -6,9 +6,10 @@ session_start();
     $id = addslashes($_POST['id']);
     $content = addslashes($_POST['content']);
     $category = addslashes($_POST['category']);
-    $author = addslashes($_POST['author']);
+    $description = addslashes($_POST['description']);
     $cost = addslashes($_POST['cost']);
-    $img = addslashes($_POST['img']);
+    $img =  addslashes($_POST['img']);
+    $inmenu = 1;
 
     if($_FILES["img"]["name"]==''){
         $avatar="sach.jpg";
@@ -24,18 +25,18 @@ session_start();
     INSERT INTO post (
 		content,
 		category,
-		author,
+		desciption,
 		cost,
 		img,
-		poster
+		inmenu
 	)
 	VALUE (
 	'{$content}',
 	'{$category}',
-	'{$author}',
+	'{$description}',
 	'{$cost}',
 	'{$img}',
-	'{$userid_session}'
+	'{$inmenu}'
 	)
     ");
     header("Location: {$_SERVER['HTTP_REFERER']}");

@@ -9,8 +9,8 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Website Nhà hàng - Product</title>
-    <link rel="icon" href="img/logo.jpg" />
+    <title>Nhà hàng - Website</title>
+    <link rel="icon" href="logo.ico" />
     <link rel="stylesheet" href="styleProduct.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -21,13 +21,13 @@
 <body>
     <div id="navbar">
         <a href="index.php" class="home button">
-            <b>Website</b> Nhà hàng
+            Nhà hàng <b>Website</b>
         </a>
         <?php
         if (!isset($_SESSION['login_user'])) {
             echo "<a href='#' id='myBtnMobile' class='button' onclick='openModal()'> Đăng nhập</a>";
         } else {
-            echo "<a href='#' id='myBtnInfo' class='button' onclick='openModalInfo()'> " . $login_session . "</a>";
+            echo "<a href='#' id='myBtnInfo' class='button' onclick='openModalInfo()'> Hello:" . $login_session . "</a>";
         }
         ?>
         <a href="index.php#contact" class="button">
@@ -37,13 +37,19 @@
             Giới thiệu
         </a>
         <a href="index.php#projects" class="button">
-            Sản phảm
+            Sản phẩm
         </a>
+        <?php
+            $result = mysqli_query($db, 'select count(user_id) as total from cart where user_id ='.$_GET['id'].'');
+            $row = mysqli_fetch_assoc($result);
+            $total_records = $row["total"];
+            echo "<a href='cart.php' id='myBtnMobile' class='button'> Cart Details ".$total_records." </a>";
+        ?>
     </div>
     <div id="navbar_mobile">
         <div id="unactive_navbar">
             <a href="index.php" class="home button" onclick="myFunctionForHome()">
-                <b>Website</b> Nhà hàng 
+                <b>Nhà hàng </b> Website
             </a>
             <a href="javascript:void(0);" class="button" onclick="myFunction()">
                 <i id="fa-bars" class="fa fa-bars"></i>
@@ -60,6 +66,12 @@
             <a href="#contact" class="button" onclick="myFunction()">
                 Liên hệ
             </a>
+            <?php
+            $result = mysqli_query($db, 'select count(user_id) as total from cart where user_id ='.$_GET['id'].'');
+            $row = mysqli_fetch_assoc($result);
+            $total_records = $row["total"];
+            echo "<a href='cart.php' id='myBtnMobile' class='button'> Cart Details ".$total_records." </a>";
+            ?>
             <?php
             if (!isset($_SESSION['login_user'])) {
                 echo "<a href='#' id='myBtnMobile' class='button' onclick='openModal()'> Đăng nhập</a>";
@@ -83,23 +95,33 @@
                     </div>
                     <div class='product-content'>
                         <div>
-                            <h3><b>".$row['content']."</b></h3>
-                            Author
-                            <p><b>".$row['desciption']."</b></p>
+                            <h3>".$row['content']."</h3>
                         </div>
                         <div>
-                            <h4>Price: ".(string)($row['cost'])."Vnd
+                            <h4>Price: ".(string)($row['cost'])."tr.Vnd
                             </h4>
                             <a href='#' class='button about'>Buy Now</a>
                         </div>
                     </div>
-                </div>"
+                </div>
+                <div class='decription'>
+                    <b>Mô tả </b>
+                    <p>".$row['desciption']."</p>
+                </div>
+                <form action='addcart.php' method='POST' enctype='multipart/form-data'>
+                    <input type='number' style='display:none;' value='".$row['id']."' id='post_id' name='post_id'>
+                    Số lượng: <input type='number' name='quantity' id='quantity' value='1'>
+                    <div type='text' id='messages' style='font-size:11px; color:#cc0000; margin-top:10px'></div>
+                    <input type='submit' class='button' value='Add to cart'>
+                </form>
+                ";
+
                 
             ?>
         </div>
         <div id="projects">
             <div class="sub_title">
-                <h2>Dự án</h2>
+                <h2>Sản phẩm tương tự</h2>
             </div>
             <div class="projects_content">
                 <?php
@@ -362,6 +384,9 @@
             var path = "product.php?id=" + id.toString();
             window.location = path;
         }
+        
+}
+        
     </script>
     <footer style="width: 100%;">
         <div class="footer">Copyright © 2020 Powered by <a style="color: gray; text-decoration: none; margin-left: 5px;" href="#" target="_blank">Bach Khoa
@@ -369,6 +394,13 @@
         </div>
     </footer>
 </body>
-
+<?php 
+if (isset($_SESSION['messages']) & (!isset($_SESSION['login_user']))) {
+    echo "<script type='text/javascript'>
+        document.getElementById('messages').innerHTML = 'Vui lòng đăng nhập trước!';
+        </script>";
+}
+unset($_SESSION['messages']);
+?>
 
 </html>

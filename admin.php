@@ -14,7 +14,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Website nhà hàng- Admin Management</title>
-    <link rel="icon" href="./img/logo.ico" sizes="32x32" />
+     <!--<link rel="icon" href="./img/logo.jpg" sizes="75x42" />-->
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -248,7 +248,7 @@
                     <input type="hidden" id="id" name="id" value="<?php echo $userid_session; ?>">
                     <input type="text" id="content" name="content" placeholder="<?php echo $login_session; ?>" required>
                     <input type="text" id="category" name="category" placeholder="<?php echo $category; ?>">
-                    <input type="text" id="author" name="author" value="<?php echo $address; ?>">
+                    <input type="text" id="description" name="description" value="<?php echo $description; ?>">
                     <input type="number" id="cost" name="cost" placeholder="<?php echo $cost; ?>">
                     <input type="file" id="img" name="img" placeholder="Picture">
                     <div style="display: flex;justify-content: center;">
@@ -271,8 +271,7 @@
                 <form action="addpost.php" method="POST" style="width: 100%;" enctype="multipart/form-data">
                     <input type="text" id="content" name="content" placeholder="Tên sản phẩm" required>
                     <input type="text" id="category" name="category" placeholder="Danh mục sản phẩm">
-                    <input type="text" id="address" name="address" placeholder="Địa chỉ">
-                    <textarea name="content" rows="10" placeholder="Nội dung mô tả sản phẩm"></textarea>
+                    <textarea id="description" name="description" rows="10" placeholder="Nội dung mô tả sản phẩm"></textarea>
                     <input type="number" id="cost" name="cost" placeholder="Giá trị sản phẩm">
                     <input type="file" id="img" name="img" placeholder="Hình ảnh sản phẩm">
                     <div style="display: flex;justify-content: center;">

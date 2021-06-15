@@ -14,7 +14,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Nhà hàng Website - Homepage</title>
-    <link rel="icon" href="./img/logo.jpg" sizes="32x32" />
+    <!--<link rel="icon" href="./img/logo.jpg" sizes="75x42" />-->
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -317,16 +317,15 @@
                     <h4>CHÀO MỪNG BẠN ĐẾN VỚI SmartFood</h4>
                     <p>Hãy để chúng tôi chào đón bạn bằng một câu chuyện mộc mạc về sự khởi nghiệp khiêm tốn của
                         chúng
-                        tôi vào những ngày trước khi về căn nhà NHÀ ĐẸP SÀI GÒN của năm 2005 về trước. Như mọi
-                        thương
-                        hiệu và công ty tên tuổi khác, chúng tôi tồn
+                        tôi vào những ngày trước khi lập ra trang web này. Như mọi
+                        thương hiệu và công ty tên tuổi khác, chúng tôi tồn
                         tại nhờ tuân thủ những nguyên tắc cơ bản trong kinh doanh, đạo đức nghề nghiệp, tôn
                         trọng khách
                         hàng và sự hợp pháp.</p>
 
                     <p>Khởi đầu tuy nhỏ bé nhưng chúng tôi ấp ủ một hoài bão lớn. Với tầm nhìn là sáng tạo ra
                         những giải
-                        pháp và dịch vụ chuyên nghiệp có thể mang đến/giúp cải thiện cuộc sống, cũng như hoạt
+                        pháp và dịch vụ chuyên nghiệp có thể mang đến/giúp cải thiện cuộc sống, sức khoẻ cũng như hoạt
                         động kinh
                         doanh của khách hàng. Các dịch vụ này phải
                         thật sự đáp ứng – thoả mãn được nhu cầu thực tế.</p>
@@ -351,7 +350,7 @@
             <div id="contact">
                 <div class="sub_title">
                     <h2>Liên hệ</h2>
-                    <p>Quý khách hàng có nhu cầu liên lạc, đóng góp ý kiến, phản hồi về sản phẩm dịch vụ của Nhà sách Phương Nam, vui lòng liên hệ:</p>
+                    <p>Quý khách hàng có nhu cầu liên lạc, đóng góp ý kiến, phản hồi về sản phẩm dịch vụ của chúng tôi, vui lòng liên hệ:</p>
                     <form action="/index.html" method="POST">
                         <input type="text" id="name" name="name" placeholder="Name">
                         <input type="text" id="email" name="email" placeholder="Email">

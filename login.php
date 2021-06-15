@@ -5,8 +5,8 @@ session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
    // username and password sent from form 
 
-   $myusername = $_POST['username'];
-   $mypassword = $_POST['password'];
+   $myusername = addslashes($_POST['username']);
+   $mypassword = md5(addslashes($_POST['password']));
 
    $sql = "SELECT * FROM user WHERE username = '$myusername' and password = '$mypassword'";
    $result = $db->query($sql) or die($db->error);
