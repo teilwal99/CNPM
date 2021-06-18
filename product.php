@@ -1,7 +1,6 @@
 <div style="display: none;">
     <?php
     include('session.php');
-    include("config.php");
     ?>
 </div>
 <!DOCTYPE html>
@@ -40,10 +39,16 @@
             Sản phẩm
         </a>
         <?php
-            $result = mysqli_query($db, 'select count(user_id) as total from cart where user_id ='.$_GET['id'].'');
+            if(!isset($_SESSION['login_user'])){
+                $userid = 0;
+            }
+            else{
+                $userid = $userid_session;
+            }
+            $result = mysqli_query($db, 'select count(id) as total from cart where user_id ='.$userid);
             $row = mysqli_fetch_assoc($result);
             $total_records = $row["total"];
-            echo "<a href='cart.php' id='myBtnMobile' class='button'> Cart Details ".$total_records." </a>";
+            echo "<a href='#' id='myBtnMobile' class='button'> Cart Details ".$total_records." </a>";
         ?>
     </div>
     <div id="navbar_mobile">
@@ -67,7 +72,7 @@
                 Liên hệ
             </a>
             <?php
-            $result = mysqli_query($db, 'select count(user_id) as total from cart where user_id ='.$_GET['id'].'');
+            $result = mysqli_query($db, 'select count(id) as total from cart where user_id ='.$userid);
             $row = mysqli_fetch_assoc($result);
             $total_records = $row["total"];
             echo "<a href='cart.php' id='myBtnMobile' class='button'> Cart Details ".$total_records." </a>";
@@ -98,7 +103,7 @@
                             <h3>".$row['content']."</h3>
                         </div>
                         <div>
-                            <h4>Price: ".(string)($row['cost'])."tr.Vnd
+                            <h4>Price: ".(string)($row['cost'])."Vnd
                             </h4>
                             <a href='#' class='button about'>Buy Now</a>
                         </div>
@@ -125,17 +130,21 @@
             </div>
             <div class="projects_content">
                 <?php
-                $sql = "SELECT * FROM post ORDER BY id LIMIT 8 OFFSET 0";
-                $result = mysqli_query($db, $sql);
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
+                $sql1 = "SELECT post.inmenu from post where id =".$_GET['id'];
+                $result1 = mysqli_query($db, $sql1);
+                $inmenu = $result1->fetch_assoc();
+
+                $sql2 = "SELECT * FROM post WHERE inmenu = ".$inmenu['inmenu']." AND id != ". $_GET['id']." ORDER BY id LIMIT 8 OFFSET 0";
+                $result2 = mysqli_query($db, $sql2);
+                if ($result2->num_rows > 0) {
+                    while ($row = $result2->fetch_assoc()) {
                         echo "<div class='sub_content' onclick='viewDetail(" . $row['id'] . ")'>
                                 <img src='./img/" . $row['img'] . "' alt='house1' class='sub_picture'>
                                 <div class='sub_text'>
-                                    <span>" . $row['category'] . "</span>
+                                    <span>" . $row['content'] . "</span>
                                 </div>
                                 <div class='prices'>
-                                    <span>" . (string)($row['cost'] / 1000000) . "tr.VND</span>
+                                    <span>" . (string)($row['cost']) . "VND</span>
                                 </div>
                             </div>";
                     }
@@ -384,13 +393,11 @@
             var path = "product.php?id=" + id.toString();
             window.location = path;
         }
-        
-}
+
         
     </script>
     <footer style="width: 100%;">
-        <div class="footer">Copyright © 2020 Powered by <a style="color: gray; text-decoration: none; margin-left: 5px;" href="#" target="_blank">Bach Khoa
-                University</a>
+        <div class="footer">Copyright © 2021 Powered by <a style="color: gray; text-decoration: none; margin-left: 5px;" href="#" target="_blank">1713093</a>
         </div>
     </footer>
 </body>
