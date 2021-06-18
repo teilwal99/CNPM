@@ -1,9 +1,6 @@
 <div style="display: none;">
     <?php
     include('session.php');
-    if($role!=1){
-        header("location: index.php");
-    }
     ?>
 </div>
 <!DOCTYPE html>
@@ -39,14 +36,14 @@
         <a href="index.php##about" class="button">
             Giới thiệu
         </a>
-        <a href="index.php#projects" class="button">
+        <a href="index.php#menu" class="button">
             Sản phẩm
         </a>
         <?php
-            $result = mysqli_query($db, 'select count(user_id) as total from cart where user_id ='.$_GET['id'].'');
+            $result = mysqli_query($db, 'select count(id) as total from cart where user_id ='.$userid_session.'');
             $row = mysqli_fetch_assoc($result);
             $total_records = $row["total"];
-            echo "<a href='cart.php' id='myBtnMobile' class='button'> Cart Details ".$total_records." </a>";
+            echo "<a href='cart.php' id='button' class='button'> Cart Details ".$total_records." </a>";
         ?>
     
     </div>
@@ -67,7 +64,12 @@
             <a href="#products" class="button" onclick="myFunction()">
                 Sản phẩm
             </a>
-            
+            <?php
+            $result = mysqli_query($db, 'select count(id) as total from cart where user_id ='.$userid_session.'');
+            $row = mysqli_fetch_assoc($result);
+            $total_records = $row["total"];
+            echo "<a href='cart.php' id='myBtnMobile' class='button'> Cart Details ".$total_records." </a>";
+            ?>
             <?php
             if (!isset($_SESSION['login_user'])) {
                 echo "<a href='#' id='myBtnMobile' class='button' onclick='openModal()'> Đăng nhập</a>";
@@ -75,10 +77,12 @@
                 echo "<a href='#' id='myBtnInfoMobile' class='button' onclick='openModalInfo()'> " . $login_session . "</a>";
             }
             ?>
+           
+        
         </div>
     </div>
     <div class="main_content">
-        <div id="users">
+        <div id="products">
             <div class="sub_title">
                 <h2>Cart</h2>
             </div>
@@ -89,36 +93,37 @@
                         <th>Giá</th>
                         <th>Số lượng</th>
                         <th>Tổng</th>
+                        <th>Thao tác </th>
                     </tr>
                     <?php
-                    $user = mysqli_query($db, 'select count(id) as total from cart');
-                    $row = mysqli_fetch_assoc($user);
-                    $total_users = $row['total'];
-                    $limit_user = 10;
-                    $total_page_user = ceil($total_users / $limit_user);
-
+                    $cart = mysqli_query($db, 'select count(id) as total from cart');
+                    $row = mysqli_fetch_assoc($cart);
+                    $total_carts = $row['total'];
+                    $limit_cart = 10;
+                    $total_page_cart = ceil($total_carts / $limit_cart);
+                    $current_page_cart = 1;
                     // Giới hạn current_page_user trong khoảng 1 đến total_page_user
-                    if ($current_page_user > $total_page_user) {
-                        $current_page_user = $total_page_user;
-                    } else if ($current_page_user < 1) {
-                        $current_page_user = 1;
+                    if ($current_page_cart > $total_page_cart) {
+                        $current_page_cart = $total_page_cart;
+                    } else if ($current_page_cart < 1) {
+                        $current_page_cart = 1;
                     }
 
                     // Tìm Start
-                    $start1 = ($current_page_user - 1) * $limit_user;
-                    $sql1 = "SELECT * FROM cart ORDER BY id LIMIT " . $limit_user . " OFFSET " . $start1;
+                    $start1 = ($current_page_cart - 1) * $limit_cart;
+                    $sql1 = "SELECT cart.id AS cartid, post.id AS postid, post.content AS prodname, post.cost AS prodcost, cart.quantity FROM cart LEFT JOIN post 
+                    ON post.id=cart.product_id WHERE user_id=$userid_session ORDER BY cartid LIMIT " . $limit_cart . " OFFSET " . $start1;
                     $result1 = mysqli_query($db, $sql1);
                     if ($result1->num_rows > 0) {
                         while ($row = $result1->fetch_assoc()) {
                             echo "
                                 <tr>
-                                    <td>" . $row['username'] . "</td>
-                                    <td>" . $row['birthday'] . "</td>
-                                    <td>" . $row['gender'] . "</td>
-                                    <td>" . $row['email'] . "</td>
-                                    <td>" . $row['phone'] . "</td>
+                                    <td>" . $row['prodname'] . "</td>
+                                    <td>" . $row['prodcost'] . "</td>
+                                    <td>" . $row['quantity'] . "</td>
+                                    <td>" . $row['quantity'] * $row['prodcost'] . "</td>
                                     <td style='text-align: center;'>
-                                        <button class='button_edit' onclick='deleteCart(".$row['id'].")'>Delete</button>
+                                        <button class='button_edit' onclick='deleteCart(".$row['cartid'].")'>Delete</button>
                                     </td>
                                 </tr>";
                         }
@@ -126,22 +131,9 @@
                     ?>
                 </table>
                 <!-- pagination -->
-                <?php
-                if ($current_page_user > 1 && $total_page_user > 1) {
-                    echo '<a href="admin.php?page_user=' . ($current_page_user - 1) . '&page_post=' . $current_page_post . '">Prev</a> | ';
-                }
-
-                for ($i = 1; $i <= $total_page_user; $i++) {
-                    if ($i == $current_page_user) {
-                        echo '<span>' . $i . '</span> | ';
-                    } else {
-                        echo '<a href="admin.php?page_user=' . $i . '&page_post=' . $current_page_post . '">' . $i . '</a> | ';
-                    }
-                }
-                if ($current_page_user < $total_page_user && $total_page_user > 1) {
-                    echo '<a href="admin.php?page_user=' . ($current_page_user + 1) . '&page_post=' . $current_page_post . '">Next</a> | ';
-                }
-                ?>
+                
+                <!-- payment-->
+                
             </div>
         </div>
     </div>
