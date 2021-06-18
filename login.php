@@ -22,11 +22,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       // session_register("myusername");
       $_SESSION['login_user'] = $myusername;
       $_SESSION['userid'] = $row['id'];
-      header("location: index.php");
+      header("location: {$_SERVER['HTTP_REFERER']}");
    } else {
       //$error = "Your Login Name or Password is invalid";
       $_SESSION['login_error'] = "error";
-      header("location: index.php");
+      header("location: {$_SERVER['HTTP_REFERER']}");
    }
 }
 ?>
