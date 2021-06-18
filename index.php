@@ -32,6 +32,20 @@
             echo "<a href='#' id='myBtnInfo' class='button' onclick='openModalInfo()'> " . $login_session . "</a>";
         }
         ?>
+        <?php
+            if(!isset($_SESSION['login_user'])){
+                $userid = 0;
+            }
+            else{
+                $userid = $userid_session;
+            }
+            $result = mysqli_query($db, 'select count(id) as total from cart where user_id ='.$userid);
+            $row = mysqli_fetch_assoc($result);
+            $total_records = $row["total"];
+            echo "<a href='cart.php' id='myBtnMobile' class='button'>
+                 Cart Details ".$total_records." 
+            </a>";
+        ?>
         <a href="#contact" class="button">
             Liên hệ
         </a>
@@ -41,6 +55,7 @@
         <a href="#projects" class="button">
             Sản phẩm
         </a>
+        
     </div>
     <div id="navbar_mobile">
         <div id="unactive_navbar">
@@ -62,6 +77,20 @@
             <a href="#contact" class="button" onclick="myFunction()">
                 Liên hệ
             </a>
+            <?php
+            if(!isset($_SESSION['login_user'])){
+                $userid = 0;
+            }
+            else{
+                $userid = $userid_session;
+            }
+            $result = mysqli_query($db, 'select count(id) as total from cart where user_id ='.$userid);
+            $row = mysqli_fetch_assoc($result);
+            $total_records = $row["total"];
+            echo "<a href='cart.php' id='myBtnMobile' class='button'>
+                 Cart Details ".$total_records." 
+            </a>";
+        ?>
             <?php
             if (!isset($_SESSION['login_user'])) {
                 echo "<a href='#' id='myBtnMobile' class='button' onclick='openModal()'> Đăng nhập</a>";
@@ -104,6 +133,7 @@
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         echo "<div class='sub_content' onclick='viewDetail(" . $row['id'] . ")'>
+                                
                                 <img src='./img/" . $row['img'] . "' alt='house1' class='sub_picture'>
                                 <div class='sub_text'>
                                     <span>" . $row['content'] . "</span>
@@ -111,7 +141,15 @@
                                 <div class='prices'>
                                     <span>" . (string)($row['cost']) . " VNĐ</span>
                                 </div>
-                            </div>";
+                                <form action='addcart.php' method='POST' enctype='multipart/form-data'>
+                                    <input type='number' style='display:none;' value='".$row['id']."' id='post_id' name='post_id'>
+                                    <input type='number' style='display:none;' name='quantity' id='quantity' value='1'>
+                                    <div type='text' id='messages' style='font-size:11px; color:#cc0000; margin-top:10px'></div>
+                                    <input type='submit' class='content_button' value='Add to cart'>
+                                </form>
+                            </div>
+                            
+                            ";
                     }
                 }
                 ?>
@@ -169,7 +207,15 @@
                                 <div class='prices'>
                                     <span>" . (string)($row['cost']) . " VNĐ</span>
                                 </div>
-                            </div>";
+                                <form action='addcart.php' method='POST' enctype='multipart/form-data'>
+                                    <input type='number' style='display:none;' value='".$row['id']."' id='post_id' name='post_id'>
+                                    <input type='number' style='display:none;' name='quantity' id='quantity' value='1'>
+                                    <div type='text' id='messages' style='font-size:11px; color:#cc0000; margin-top:10px'></div>
+                                    <input type='submit' class='content_button' value='Add to cart'>
+                                </form>
+                            </div>
+                                ";
+                            
                     }
                 }
                 ?>
@@ -229,6 +275,12 @@
                                 <div class='prices'>
                                     <span>" . (string)($row['cost']) . " VNĐ</span>
                                 </div>
+                                <form action='addcart.php' method='POST' enctype='multipart/form-data'>
+                                    <input type='number' style='display:none;' value='".$row['id']."' id='post_id' name='post_id'>
+                                    <input type='number' style='display:none;' name='quantity' id='quantity' value='1'>
+                                    <div type='text' id='messages' style='font-size:11px; color:#cc0000; margin-top:10px'></div>
+                                    <input type='submit' class='content_button' value='Add to cart'>
+                                </form>
                             </div>";
                     }
                 }
@@ -288,6 +340,12 @@
                                 <div class='prices'>
                                     <span>" . (string)($row['cost']) . " VNĐ</span>
                                 </div>
+                                <form action='addcart.php' method='POST' enctype='multipart/form-data'>
+                                    <input type='number' style='display:none;' value='".$row['id']."' id='post_id' name='post_id'>
+                                    <input type='number' style='display:none;' name='quantity' id='quantity' value='1'>
+                                    <div type='text' id='messages' style='font-size:11px; color:#cc0000; margin-top:10px'></div>
+                                    <input type='submit' class='content_button' value='Add to cart'>
+                                </form>
                             </div>";
                     }
                 }
