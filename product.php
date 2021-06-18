@@ -48,7 +48,9 @@
             $result = mysqli_query($db, 'select count(id) as total from cart where user_id ='.$userid);
             $row = mysqli_fetch_assoc($result);
             $total_records = $row["total"];
-            echo "<a href='#' id='myBtnMobile' class='button'> Cart Details ".$total_records." </a>";
+            echo "<a href='cart.php' id='myBtnMobile' class='button'>
+                 Cart Details ".$total_records." 
+            </a>";
         ?>
     </div>
     <div id="navbar_mobile">
@@ -103,9 +105,7 @@
                             <h3>".$row['content']."</h3>
                         </div>
                         <div>
-                            <h4>Price: ".(string)($row['cost'])."Vnd
-                            </h4>
-                            <a href='#' class='button about'>Buy Now</a>
+                            <h4>Price: ".(string)($row['cost'])."Vnd</h4>
                         </div>
                     </div>
                 </div>
