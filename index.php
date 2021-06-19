@@ -25,6 +25,7 @@
         <a href="index.php" class="home button">
             <b>Website</b> Nhà hàng
         </a>
+        
         <?php
         if (!isset($_SESSION['login_user'])) {
             echo "<a href='#' id='myBtnMobile' class='button' onclick='openModal()'> Đăng nhập</a>";
@@ -32,6 +33,7 @@
             echo "<a href='#' id='myBtnInfo' class='button' onclick='openModalInfo()'> " . $login_session . "</a>";
         }
         ?>
+
         <?php
             if(!isset($_SESSION['login_user'])){
                 $userid = 0;
@@ -46,6 +48,7 @@
                  Cart Details ".$total_records." 
             </a>";
         ?>
+        
         <a href="#contact" class="button">
             Liên hệ
         </a>
@@ -55,7 +58,12 @@
         <a href="#projects" class="button">
             Sản phẩm
         </a>
-        
+        <div class="search-container" style='float: left; max-width: 400px; max-height:50px; margin:auto auto auto 100px;'>
+            <form action="search.php" method='POST' enctype='multipart/form-data'>
+                <input type="text" placeholder="Search.." style='max-width:80%;height:40px;' name="keyword">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
     </div>
     <div id="navbar_mobile">
         <div id="unactive_navbar">
@@ -66,6 +74,13 @@
                 <i id="fa-bars" class="fa fa-bars"></i>
                 <i id="fa-times" class="fa fa-times" style="display: none;"></i>
             </a>
+        </div>
+
+        <div class="search-container" style='float: left; max-width: 400px; max-height:50px; margin:auto auto auto 100px;'>
+            <form action="search.php" method='POST' enctype='multipart/form-data'>
+                <input type="text" placeholder="Search.." style='max-width:80%;height:40px;' name="keyword">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
         </div>
         <div id="active_navbar">
             <a href="#projects" class="button" onclick="myFunction()">
@@ -103,6 +118,7 @@
     <div class="main_content">
         <div class="top_content">
             <img src="./img/nhahang.jpg" alt="architect" class="main_picture">
+            
         </div>
         <div id="projects">
             <div class="sub_title">

@@ -18,26 +18,19 @@
 </head>
 
 <body>
-    <div id="navbar">
+<div id="navbar">
         <a href="index.php" class="home button">
-            Nhà hàng <b>Website</b>
+            <b>Website</b> Nhà hàng
         </a>
+        
         <?php
         if (!isset($_SESSION['login_user'])) {
             echo "<a href='#' id='myBtnMobile' class='button' onclick='openModal()'> Đăng nhập</a>";
         } else {
-            echo "<a href='#' id='myBtnInfo' class='button' onclick='openModalInfo()'> Hello:" . $login_session . "</a>";
+            echo "<a href='#' id='myBtnInfo' class='button' onclick='openModalInfo()'> " . $login_session . "</a>";
         }
         ?>
-        <a href="index.php#contact" class="button">
-            Liên hệ
-        </a>
-        <a href="index.php##about" class="button">
-            Giới thiệu
-        </a>
-        <a href="index.php#projects" class="button">
-            Sản phẩm
-        </a>
+
         <?php
             if(!isset($_SESSION['login_user'])){
                 $userid = 0;
@@ -52,20 +45,43 @@
                  Cart Details ".$total_records." 
             </a>";
         ?>
+        
+        <a href="#contact" class="button">
+            Liên hệ
+        </a>
+        <a href="#about" class="button">
+            Giới thiệu
+        </a>
+        <a href="#projects" class="button">
+            Sản phẩm
+        </a>
+        <div class="search-container" style='float: left; max-width: 400px; max-height:50px; margin:auto auto auto 100px;'>
+            <form action="search.php" method='POST' enctype='multipart/form-data'>
+                <input type="text" placeholder="Search.." style='max-width:80%;height:40px;' name="keyword">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
     </div>
     <div id="navbar_mobile">
         <div id="unactive_navbar">
             <a href="index.php" class="home button" onclick="myFunctionForHome()">
-                <b>Nhà hàng </b> Website
+                <b>Website</b> Nhà hàng
             </a>
             <a href="javascript:void(0);" class="button" onclick="myFunction()">
                 <i id="fa-bars" class="fa fa-bars"></i>
                 <i id="fa-times" class="fa fa-times" style="display: none;"></i>
             </a>
         </div>
+
+        <div class="search-container" style='float: left; max-width: 400px; max-height:50px; margin:auto auto auto 100px;'>
+            <form action="search.php" method='POST' enctype='multipart/form-data'>
+                <input type="text" placeholder="Search.." style='max-width:80%;height:40px;' name="keyword">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
         <div id="active_navbar">
             <a href="#projects" class="button" onclick="myFunction()">
-                Sản phẩm
+                Sản Phẩm
             </a>
             <a href="#about" class="button" onclick="myFunction()">
                 Giới thiệu
@@ -74,16 +90,24 @@
                 Liên hệ
             </a>
             <?php
+            if(!isset($_SESSION['login_user'])){
+                $userid = 0;
+            }
+            else{
+                $userid = $userid_session;
+            }
             $result = mysqli_query($db, 'select count(id) as total from cart where user_id ='.$userid);
             $row = mysqli_fetch_assoc($result);
             $total_records = $row["total"];
-            echo "<a href='cart.php' id='myBtnMobile' class='button'> Cart Details ".$total_records." </a>";
-            ?>
+            echo "<a href='cart.php' id='myBtnMobile' class='button'>
+                 Cart Details ".$total_records." 
+            </a>";
+        ?>
             <?php
             if (!isset($_SESSION['login_user'])) {
                 echo "<a href='#' id='myBtnMobile' class='button' onclick='openModal()'> Đăng nhập</a>";
             } else {
-                echo "<a href='#' id='myBtnInfoMobile' class='button' onclick='openModalInfo()'> Hello:" . $login_session . "</a>";
+                echo "<a href='#' id='myBtnInfoMobile' class='button' onclick='openModalInfo()'> " . $login_session . "</a>";
             }
             ?>
         </div>
