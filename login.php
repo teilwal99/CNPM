@@ -28,6 +28,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $_SESSION['login_error'] = "error";
       header("location: {$_SERVER['HTTP_REFERER']}");
    }
+
+   if ($row['role'] == 1) {
+      header("location: admin.php");
+   } else {
+      header("location: {$_SERVER['HTTP_REFERER']}");
+   }
+
 }
 ?>
 <html>
