@@ -20,7 +20,7 @@
             <input type='hidden' id='id' name='id' value='".$row['id']."'>
             <input type='text' id='content' name='content' value='".$row['content']."' required>
             <input type='text' id='category' name='category' value='".$row['category']."'>
-            <textarea name='description'value='".$row['description']."'></textarea>
+            <textarea name='description'value='".$row['desciption']."'></textarea>
             <input type='number' id='cost' name='cost' value='".$row['cost']."'>
             <input type='file' id='img' name='img' placeholder='Picture'>
             <div style='display: flex;justify-content: center;'>
