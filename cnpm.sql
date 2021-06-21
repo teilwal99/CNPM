@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 18, 2021 at 10:14 PM
+-- Generation Time: Jun 21, 2021 at 06:27 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -43,7 +43,9 @@ INSERT INTO `cart` (`id`, `user_id`, `product_id`, `quantity`) VALUES
 (3, 12, 3, 1),
 (4, 12, 2, 5),
 (5, 12, 8, 1),
-(6, 12, 1, 1);
+(6, 12, 1, 1),
+(7, 12, 5, 1),
+(8, 12, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -68,6 +70,27 @@ INSERT INTO `employee` (`id`, `name`, `shift`, `email`, `img`) VALUES
 (2, 'George Wilson', 2, 'GeorgeW@gmail.com', '002.jpg'),
 (3, 'Robert Pattinson', 3, 'ROB@gmail.com', '003.jpg'),
 (4, 'Noah Roberts', 4, 'Noah_12@gmail.com', '004.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `amount` int(50) NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `amount`, `date`) VALUES
+(1, 12, 0, '0000-00-00'),
+(2, 12, 0, '2021-06-21');
 
 -- --------------------------------------------------------
 
@@ -163,10 +186,7 @@ INSERT INTO `user` (`id`, `username`, `password`, `email`, `birthday`, `role`, `
 (6, 'admin1', '21232f297a57a5a743894a0e4a801fc3', 'admin1@gmail.com', '2018-08-16', 1, 'unnamed.png', '0905345670', 'none'),
 (7, 'admin2', '21232f297a57a5a743894a0e4a801fc3', 'admin2@gmail.com', '2018-08-16', 1, 'unnamed.png', '0905346884', 'none'),
 (8, 'tan', '25d55ad283aa400af464c76d713c07ad', 'tai@gmail.com', '2020-12-03', 0, 'user1.png', '0156856897', 'male'),
-(9, 'quan', '25d55ad283aa400af464c76d713c07ad', 'quan@gmail.com', '2020-12-11', 0, 'user2.png', '056887663', 'female'),
-(10, 'liem', '25d55ad283aa400af464c76d713c07ad', 'liem@gmail.com', '1999-05-19', 0, 'user3.png', '0322645868', 'male'),
-(11, 'cong', '25d55ad283aa400af464c76d713c07ad', 'cong@gmail.com', '2020-12-22', 0, 'user4.png', '0833156876', 'female'),
-(12, 'tan', 'c4ca4238a0b923820dcc509a6f75849b', 'tan@gmail.com', '2021-06-15', 0, '018.jpg', '0123456789', 'Nam');
+(12, 'tan', 'c4ca4238a0b923820dcc509a6f75849b', 'tan@gmail.com', '2021-06-30', 0, '010.jpg', '0123456789', 'Nam');
 
 --
 -- Indexes for dumped tables
@@ -182,6 +202,12 @@ ALTER TABLE `cart`
 -- Indexes for table `employee`
 --
 ALTER TABLE `employee`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -204,13 +230,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `post`
