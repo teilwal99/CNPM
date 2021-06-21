@@ -114,6 +114,7 @@
                     $sql1 = "SELECT cart.id AS cartid, post.id AS postid, post.content AS prodname, post.cost AS prodcost, cart.quantity FROM cart LEFT JOIN post 
                     ON post.id=cart.product_id WHERE user_id=$userid_session ORDER BY cartid LIMIT " . $limit_cart . " OFFSET " . $start1;
                     $result1 = mysqli_query($db, $sql1);
+                    $sum = 0;
                     if ($result1->num_rows > 0) {
                         while ($row = $result1->fetch_assoc()) {
                             echo "
@@ -126,8 +127,20 @@
                                         <button class='button_edit' onclick='deleteCart(".$row['cartid'].")'>Delete</button>
                                     </td>
                                 </tr>";
-                        }
+                                $sum = $sum + $row['quantity'] * $row['prodcost'];
+                        }; 
                     }
+                    
+                    ?>
+                    <?php
+                    echo"
+                    <form action='order.php' method='POST' enctype='multipart/form-data'>
+                        <input type='text' style='display:none;' value=".$userid_session." name='userid'>
+                        <input type='number' style='display:none;' value=".$sum."  name='sum'>
+                        <input type='date' style='display:none;' value=".date("Y-m-d")."  name='date'>
+                        <button type='submit' class = 'button'>Thanh toán</button>
+                    </form>
+                "; 
                     ?>
                 </table>
                 <!-- pagination -->

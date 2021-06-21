@@ -23,6 +23,7 @@
 <?php
     $current_page_user = isset($_GET['page_user']) ? $_GET['page_user'] : 1;
     $current_page_post = isset($_GET['page_post']) ? $_GET['page_post'] : 1;
+    $current_page_order = isset($_GET['page_order']) ? $_GET['page_order'] : 1;
 ?>
 
 <body>
@@ -200,6 +201,68 @@
                 }
                 if ($current_page_post < $total_page_post && $total_page_post > 1) {
                     echo '<a href="admin.php?page_post=' . ($current_page_post + 1) . '&page_user=' . $current_page_user . '">Next</a> | ';
+                }
+                ?>
+            </div>
+        </div>
+        <div id="products">
+            <div class="sub_title">
+                <h2>Đơn đặt hàng</h2>
+            </div>
+            <div class="projects_content">
+                <button class="signup-btn" onclick="openModalAddProducts()">Thêm sản phẩm</button>
+                <table id="admin">
+                    <tr>
+                        <th>Tên người đặt</th>
+                        <th>Tiền</th>
+                        <th>Ngày</th>
+                    </tr>
+                    <?php
+                    $order = mysqli_query($db, 'select count(id) as total from orders');
+                    $row2 = mysqli_fetch_assoc($order);
+                    $total = $row2['total'];
+                    $limit = 4;
+                    $total_page = ceil($total / $limit);
+
+                    // Giới hạn current_page_post trong khoảng 1 đến total_page_post
+                    if ($current_page_order > $total_page) {
+                        $current_page_order = $total_page;
+                    } else if ($current_page_order < 1) {
+                        $current_page_order = 1;
+                    }
+
+                    // Tìm Start
+                    $start2 = ($current_page_order - 1) * $limit;
+                    $sql2 = "SELECT orders.id AS id, user.username AS username,orders.amount,orders.date FROM orders LEFT JOIN user ON orders.user_id=user.id 
+                     ORDER BY id LIMIT " . $limit . " OFFSET " . $start2;
+                    $result2 = mysqli_query($db, $sql2);
+                    if ($result2->num_rows > 0) {
+                        while ($row2 = $result2->fetch_assoc()) {
+                            echo "
+                                <tr>
+                                    <td>" . $row2['username'] . "</td>
+                                    <td>" . $row2['amount'] . "</td>
+                                    <td>" . $row2['date'] . "</td>
+                                </tr>";
+                        }
+                    }
+                    ?>
+                </table>
+                <!-- pagination -->
+                <?php
+                if ($current_page_order > 1 && $total_page_order > 1) {
+                    echo '<a href="admin.php?page_post=' . ($current_page_post) . '&page_user=' . $current_page_user . '&page_order=' . ($current_page_order - 1) .'">Prev</a> | ';
+                }
+
+                for ($i = 1; $i <= $total_page; $i++) {
+                    if ($i == $current_page_order) {
+                        echo '<span>' . $i . '</span> | ';
+                    } else {
+                        echo '<a href="admin.php?page_order=' . $i . '&page_user=' . $current_page_user . '">' . $i . '</a> | ';
+                    }
+                }
+                if ($current_page_order < $total_page && $total_page > 1) {
+                    echo '<a href="admin.php?page_order=' . ($current_page_order + 1) . '&page_user=' . $current_page_user . '">Next</a> | ';
                 }
                 ?>
             </div>
